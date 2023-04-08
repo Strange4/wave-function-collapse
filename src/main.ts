@@ -15,8 +15,13 @@ const torch = new Sprite(texture);
 
 torch.x = app.renderer.width / 2;
 torch.y = app.renderer.height / 2;
-torch.anchor.set(0.5);
+const rect = new Sprite(texture);
+rect.x = app.renderer.width / 2;
+rect.y = app.renderer.height / 2;
+rect.angle = -90;
+// torch.anchor.set(1);
 app.stage.addChild(torch);
+app.stage.addChild(rect);
 app.ticker.add(() => {
     torch.rotation += 0.01;
 });
