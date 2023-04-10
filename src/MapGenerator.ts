@@ -1,14 +1,7 @@
-import {
-    Assets,
-    Rectangle,
-    Texture,
-    ParticleContainer,
-    Container,
-    Sprite,
-} from "pixi.js";
-import WaveFunctionCollapse, { Tileable } from "./WaveCollapse";
+import { Texture, ParticleContainer, Container, Sprite } from "pixi.js";
+import { Tileable } from "./WaveCollapse";
 
-class MazeTile implements Tileable {
+export class MazeTile implements Tileable {
     readonly texture: Texture;
     readonly width: number;
     readonly height: number;

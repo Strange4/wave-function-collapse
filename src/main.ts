@@ -1,6 +1,7 @@
 import "./style.css";
-import { Application, Sprite, Assets, Rectangle, Texture } from "pixi.js";
+import { Application, Assets, Rectangle, Texture } from "pixi.js";
 import { generateTiles } from "./MapGenerator";
+import { displayTestTiles } from "./tests";
 const tileWidth = 50;
 const mapWidth = 9;
 
@@ -13,15 +14,13 @@ const app = new Application({
 
 const wallTexture = await getWallTexture();
 const tiles = generateTiles(wallTexture, tileWidth);
-tiles.forEach((tile, index) => {
-    const container = tile.generateSprites();
+displayTestTiles(tiles, app, mapWidth, tileWidth);
 
-    container.x = (index % mapWidth) * (tileWidth + 4);
-    container.y = Math.floor(index / mapWidth) * (tileWidth + 4);
-    app.stage.addChild(container);
-});
 appElement?.appendChild(app.view as HTMLCanvasElement);
 
+/**
+ * anything bellow is for testing
+ */
 async function getWallTexture() {
     Assets.backgroundLoad("cave_tileset.png");
     const wallTexture = await Assets.load<Texture>("cave_tileset.png");
