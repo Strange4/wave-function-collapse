@@ -106,8 +106,8 @@ class MazeTile implements Tileable {
     }
     private static generateTopWall(texture: Texture): Sprite {
         const sprite = new Sprite(texture);
-        sprite.rotation = -90;
-        sprite.y += sprite.width;
+        sprite.angle = -90;
+        sprite.y += sprite.width / 2;
         return sprite;
     }
     private static generateRightWall(
@@ -115,7 +115,7 @@ class MazeTile implements Tileable {
         tileWidth: number
     ): Sprite {
         const sprite = new Sprite(texture);
-        sprite.x += tileWidth - sprite.width;
+        sprite.x += tileWidth - sprite.width / 2;
         return sprite;
     }
     private static generateBottomWall(
@@ -136,13 +136,15 @@ class MazeTile implements Tileable {
 /**
  *
  * @param wallTexture the texure of the wall (should be vertical)
+ * @param width the width in pixels of the tile
+ * @param height the height in pixels of the tile
  * @returns all the tiles in all possible rotations
  */
 
-function generateTiles(
+export function generateTiles(
     wallTexture: Texture,
     width: number,
-    height: number
+    height = width
 ): MazeTile[] {
     let walls: MazeTile[] = [];
 
@@ -199,10 +201,3 @@ function generateTiles(
     );
     return walls;
 }
-
-const texture = await Assets.load<Texture>("cave_tileset.png");
-const torchRectangle = new Rectangle(224, 128, 32, 32);
-texture.frame = torchRectangle;
-
-const tiles = generateTiles(texture, 10, 10);
-export const algo = new WaveFunctionCollapse(tiles, 2);

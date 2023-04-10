@@ -31,13 +31,19 @@ export default class WaveFunctionCollapse<T extends Tileable> {
                 .build();
         });
         this.grid = [];
-        for (let i = 0; i < width * height; i++) {
-            // create a new copy of all the modules for each entry of the grid
-            const options = possibleModules.map((module) => {
-                return Module.from(module);
+        Array(width * height)
+            .fill(0)
+            .forEach((_, i) => {
+                // create a new copy of all the modules for each entry of the grid
+                const options = possibleModules.map((module) => {
+                    return Module.from(module);
+                });
+                this.grid[i] = new Slot(
+                    i % width,
+                    Math.floor(i / width),
+                    options
+                );
             });
-            this.grid[i] = new Slot(i % width, Math.floor(i / width), options);
-        }
         this.gridWidth = width;
         this.gridHeight = height;
     }
